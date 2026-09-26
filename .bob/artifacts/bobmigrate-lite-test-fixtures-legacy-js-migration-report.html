@@ -1,0 +1,196 @@
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>BobMigrate Lite — Migration Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1f2328;
+    background: #ffffff;
+    padding: 32px 16px 48px;
+  }
+  .page { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: #57606a; font-size: 13px; margin-bottom: 28px; }
+  h2 { font-size: 15px; font-weight: 600; margin: 28px 0 10px; padding-bottom: 4px; border-bottom: 1px solid #e5e7eb; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f7f8fa; text-align: left; padding: 7px 10px; font-weight: 600; border: 1px solid #e5e7eb; }
+  td { padding: 7px 10px; border: 1px solid #e5e7eb; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafafa; }
+  code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12.5px; background: #f0f2f4; padding: 1px 4px; border-radius: 3px; }
+  pre {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    background: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 12.5px;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.55;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .high   { background: #fee2e2; color: #991b1b; }
+  .medium { background: #fef3c7; color: #92400e; }
+  .low    { background: #d1fae5; color: #065f46; }
+  .del { background: #ffeef0; display: block; }
+  .add { background: #e6ffed; display: block; }
+  .ctx { display: block; }
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
+  .diff-label { font-size: 11px; font-weight: 600; color: #57606a; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px; }
+  .info-grid { display: grid; grid-template-columns: 130px 1fr; gap: 5px 12px; font-size: 13px; }
+  .lbl { color: #57606a; font-weight: 600; }
+  .green-box {
+    background: #d1fae5; border: 1px solid #a7f3d0;
+    border-radius: 8px; padding: 12px 16px;
+    color: #065f46; font-weight: 600; font-size: 13.5px;
+    display: flex; align-items: center; gap: 10px; margin-top: 8px;
+  }
+  .status-bar {
+    display: flex; align-items: center; gap: 12px;
+    background: #d1fae5; border: 1px solid #a7f3d0;
+    border-radius: 8px; padding: 14px 18px; margin-top: 28px;
+    font-weight: 600; font-size: 15px; color: #065f46;
+  }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 3px; }
+  footer {
+    margin-top: 40px; padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center; font-size: 12px; color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>BobMigrate Lite — Migration Report</h1>
+  <p class="subtitle">Skill: <code>modernize</code>  ·  MCP tools: <code>detect_legacy_patterns</code>, <code>security_audit</code>  ·  IBM Bob 2.0</p>
+
+  
+  <h2>Target File</h2>
+  <div class="info-grid">
+    <span class="lbl">File</span><span><code>test-fixtures/legacy.js</code></span>
+    <span class="lbl">Language</span><span>JavaScript (Node.js, CommonJS)</span>
+    <span class="lbl">Test file</span><span><code>test-fixtures/legacy.test.js</code> (created by Test Agent)</span>
+  </div>
+
+  
+  <h2>Legacy Patterns Detected</h2>
+  <p style="font-size:13px;color:#57606a;margin-bottom:8px">Tool: <code>detect_legacy_patterns</code>  ·  3 findings</p>
+  <table>
+    <thead><tr><th>Line</th><th>Code Snippet</th><th>Pattern</th><th>Sev.</th><th>Suggestion</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>2</td>
+        <td><code>setTimeout(function () {</code></td>
+        <td>anonymous function expression</td>
+        <td><span class="badge medium">Medium</span></td>
+        <td>Replace with arrow function <code>() =&gt; { … }</code></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><code>callback(null, { id: userId, name: "Hafiza" });</code></td>
+        <td>callback invocation</td>
+        <td><span class="badge high">High</span></td>
+        <td>Replace with <code>resolve(result)</code> inside a Promise constructor</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><code>getUserData(123, function (err, user) {</code></td>
+        <td>anonymous function expression</td>
+        <td><span class="badge medium">Medium</span></td>
+        <td>Replace call site with <code>async/await</code> + <code>try/catch</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+  <h2>Modernization Plan Executed</h2>
+  <ul style="font-size:13px;line-height:2">
+    <li>Remove <code>callback</code> parameter from <code>getUserData</code></li>
+    <li>Wrap body in <code>return new Promise((resolve) =&gt; { … })</code></li>
+    <li>Replace <code>callback(null, result)</code> with <code>resolve(result)</code></li>
+    <li>Replace anonymous <code>function()</code> inside <code>setTimeout</code> with arrow function</li>
+    <li>Replace call-site callback handler with top-level <code>async</code> IIFE + <code>try/catch</code></li>
+    <li>Add <code>module.exports = { getUserData };</code> for testability</li>
+  </ul>
+
+  
+  <h2>Code Transformation</h2>
+  <div class="diff-grid">
+    <div>
+      <div class="diff-label">Before — legacy.js</div>
+      <pre><span class="del">function getUserData(userId, callback) {</span><span class="ctx">  setTimeout(</span><span class="del">function () {</span><span class="del">    callback(null, { id: userId, name: "Hafiza" });</span><span class="ctx">  }, 100);
+}
+
+</span><span class="del">getUserData(123, function (err, user) {</span><span class="del">  if (err) {</span><span class="del">    console.error(err);</span><span class="del">    return;</span><span class="del">  }</span><span class="ctx">  console.log(user);
+<span class="del">});</span></span></pre>
+    </div>
+    <div>
+      <div class="diff-label">After — legacy.js (modernized)</div>
+      <pre><span class="add">function getUserData(userId) {</span><span class="add">  return new Promise((resolve) =&gt; {</span><span class="ctx">    setTimeout(</span><span class="add">() =&gt; {</span><span class="add">      resolve({ id: userId, name: "Hafiza" });</span><span class="ctx">    }, 100);
+<span class="add">  });</span>
+}
+
+</span><span class="add">(async () =&gt; {</span><span class="add">  try {</span><span class="add">    const user = await getUserData(123);</span><span class="ctx">    console.log(user);
+<span class="add">  } catch (err) { console.error(err); }</span><span class="add">})();</span>
+<span class="add">
+module.exports = { getUserData };</span></span></pre>
+    </div>
+  </div>
+
+  
+  <h2>Files Changed</h2>
+  <table>
+    <thead><tr><th>File</th><th>Action</th><th>Agent</th></tr></thead>
+    <tbody>
+      <tr><td><code>test-fixtures/legacy.js</code></td><td>Fully modernized (async/await, arrow fn, Promise)</td><td>Refactoring Agent</td></tr>
+      <tr><td><code>test-fixtures/legacy.test.js</code></td><td>Created — 3-assertion Promise-based test suite</td><td>Test Agent</td></tr>
+    </tbody>
+  </table>
+
+  
+  <h2>Tests Executed</h2>
+  <div class="info-grid" style="margin-bottom:10px">
+    <span class="lbl">Command</span><span><code>node test-fixtures/legacy.test.js</code></span>
+    <span class="lbl">Result</span><span><span class="badge low" style="font-size:13px;padding:3px 10px">✅ PASS</span></span>
+    <span class="lbl">Self-heal</span><span>Not needed — passed on first run</span>
+  </div>
+  <pre>PASS: getUserData(123) returns a Promise
+{ id: 123, name: 'Hafiza' }
+PASS: user.id === 123
+PASS: user.name === "Hafiza"
+
+✅ All tests passed.</pre>
+
+  
+  <h2>Security Audit <span style="font-weight:400;font-size:12px;color:#57606a">(LOCAL rule-based — not watsonx.ai)</span></h2>
+  <p style="font-size:13px;color:#57606a;margin-bottom:8px">Tool: <code>security_audit</code>  ·  Patterns checked: eval, innerHTML, document.write, hardcoded credentials, SQL string concatenation, sensitive logging</p>
+  <div class="green-box">
+    <span style="font-size:18px">🛡️</span>
+    <span>No security issues detected.</span>
+  </div>
+
+  
+  <div class="status-bar">
+    <span style="font-size:20px">✅</span>
+    <span>Modernization complete — all tests pass, security audit clean.</span>
+  </div>
+
+  <footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>
