@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "bobmigrate-lite": {
+      "command": "python3",
+      "args": ["/home/hafizas-pc/bobmigrate-mcp/mcp-server/server.py"],
+      "disabled": false,
+      "alwaysAllow": []
+    }
+  }
+}
