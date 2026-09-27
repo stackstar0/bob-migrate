@@ -2,9 +2,12 @@ import os
 import re
 import json
 try:
-    from mcp.server.fastmcp import FastMCP
+    from mcp.server.mcpserver import MCPServer as FastMCP
 except ImportError:
-    from fastmcp import FastMCP
+    try:
+        from mcp.server.fastmcp import FastMCP
+    except ImportError:
+        from fastmcp import FastMCP
 
 mcp = FastMCP("bobmigrate-lite-mcp")
 

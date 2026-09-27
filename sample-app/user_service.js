@@ -1,13 +1,29 @@
-// Modernized ES2022 Service — async/await, const/let, Promise
-const fs = require('fs');
+// sample-app/user_service.js
+// LEGACY JavaScript — uses var, callbacks, and http.get.
+// This is the TARGET file that the BobMigrate Lite skill modernizes.
 
-async function getUserData(userId) {
-  if (!userId) {
-    throw new Error("User ID is required");
-  }
-  const user = { id: userId, role: "admin" };
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return user;
+var http = require('http');
+
+function getUserData(userId, callback) {
+  var options = {
+    hostname: 'jsonplaceholder.typicode.com',
+    path: '/users/' + userId,
+    method: 'GET'
+  };
+
+  http.get(options, function(err, res) {
+    if (err) {
+      return callback(err, null);
+    }
+    var body = '';
+    res.on('data', function(chunk) {
+      body += chunk;
+    });
+    res.on('end', function() {
+      var user = { id: userId, name: 'Demo User' };
+      callback(null, user);
+    });
+  });
 }
 
 module.exports = { getUserData };
