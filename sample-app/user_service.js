@@ -1,14 +1,13 @@
-// Legacy ES5 Callback Service
-var fs = require('fs');
+// Modernized ES2022 Service — async/await, const/let, Promise
+const fs = require('fs');
 
-function getUserData(userId, callback) {
-  var user = { id: userId, role: "admin" };
-  setTimeout(function() {
-    if (!userId) {
-      return callback(new Error("User ID is required"), null);
-    }
-    return callback(null, user);
-  }, 100);
+async function getUserData(userId) {
+  if (!userId) {
+    throw new Error("User ID is required");
+  }
+  const user = { id: userId, role: "admin" };
+  await new Promise((resolve) => setTimeout(resolve, 100));
+  return user;
 }
 
-module.exports = { getUserData: getUserData };
+module.exports = { getUserData };
