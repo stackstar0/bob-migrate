@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BobMigrate Lite — Pitch Deck</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @import url('');
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  /* ── Slide shell ─────────────────────────────────────── */
+  .slide {
+    width: 1120px;
+    min-height: 630px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* accent bar top */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #3b5bdb 0%, #7c5cd8 100%);
+  }
+
+  /* slide number */
+  .slide-num {
+    position: absolute;
+    bottom: 18px; right: 28px;
+    font-size: 11px;
+    color: #adb5bd;
+    letter-spacing: .5px;
+  }
+
+  /* watermark logo text */
+  .brand-corner {
+    position: absolute;
+    top: 18px; right: 28px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #3b5bdb;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── Typography ──────────────────────────────────────── */
+  h1  { font-size: 44px; font-weight: 800; line-height: 1.1; color: #1f2328; }
+  h2  { font-size: 28px; font-weight: 700; color: #1f2328; margin-bottom: 6px; }
+  h3  { font-size: 17px; font-weight: 700; color: #3b5bdb; margin-bottom: 4px; }
+  p, li { font-size: 15px; line-height: 1.65; color: #374151; }
+  li  { margin-left: 18px; margin-bottom: 4px; }
+  .sub { font-size: 18px; color: #57606a; margin-top: 12px; line-height: 1.5; }
+  .label {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7c5cd8;
+    margin-bottom: 10px;
+  }
+  .muted { font-size: 13px; color: #6b7280; }
+
+  /* ── Layout helpers ──────────────────────────────────── */
+  .pad   { padding: 60px 80px; }
+  .pad-sm { padding: 44px 80px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+
+  /* ── Cards ───────────────────────────────────────────── */
+  .card {
+    background: #f7f8fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px 22px;
+  }
+  .card-accent {
+    border-left: 4px solid #3b5bdb;
+  }
+  .card-purple {
+    border-left: 4px solid #7c5cd8;
+  }
+  .card-green {
+    border-left: 4px solid #16a34a;
+  }
+
+  /* ── Badges ──────────────────────────────────────────── */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .badge-high   { background: #fee2e2; color: #b91c1c; }
+  .badge-medium { background: #fef3c7; color: #92400e; }
+  .badge-low    { background: #dcfce7; color: #15803d; }
+  .badge-pass   { background: #dcfce7; color: #15803d; }
+  .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+
+  /* ── Step list ───────────────────────────────────────── */
+  .step-list { list-style: none; margin: 0; padding: 0; }
+  .step-list li {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #374151;
+    margin: 0;
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-num {
+    min-width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #3b5bdb;
+    color: white;
+    font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Code block ──────────────────────────────────────── */
+  .code-block {
+    background: #1e1e2e;
+    border-radius: 8px;
+    padding: 18px 22px;
+    font-family: "Cascadia Code", "Fira Code", "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #cdd6f4;
+  }
+  .code-block .kw  { color: #89b4fa; }
+  .code-block .fn  { color: #a6e3a1; }
+  .code-block .cm  { color: #6c7086; }
+  .code-block .str { color: #f9e2af; }
+
+  /* ── Stat blocks ─────────────────────────────────────── */
+  .stat { text-align: center; padding: 20px 16px; }
+  .stat-num { font-size: 42px; font-weight: 800; color: #3b5bdb; line-height: 1; }
+  .stat-label { font-size: 13px; color: #57606a; margin-top: 6px; }
+
+  /* ── Slide 1 — Cover ─────────────────────────────────── */
+  .cover-bg {
+    background: #0f1629;
+    min-height: 630px;
+  }
+  .cover-bg::before {
+    background: linear-gradient(90deg, #3b5bdb 0%, #7c5cd8 100%);
+    height: 5px;
+  }
+  .cover-content { padding: 0 80px; }
+  .cover-content h1 { color: #ffffff; font-size: 52px; }
+  .cover-content .sub { color: #94a3b8; font-size: 19px; margin-top: 16px; max-width: 680px; }
+  .cover-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(59,91,219,.25);
+    border: 1px solid rgba(59,91,219,.5);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px; font-weight: 600;
+    color: #93c5fd;
+    margin-bottom: 28px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .cover-pills { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+  .pill {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px; font-weight: 600;
+    color: #e2e8f0;
+  }
+
+  /* ── Architecture diagram ────────────────────────────── */
+  .arch-box {
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13px;
+    font-family: "Cascadia Code", monospace;
+    color: #374151;
+    background: #f7f8fa;
+    line-height: 1.9;
+  }
+  .arch-box .hl { color: #3b5bdb; font-weight: 700; }
+  .arch-box .hl2 { color: #7c5cd8; font-weight: 700; }
+  .arch-box .arrow { color: #9ca3af; }
+
+  /* ── Print ───────────────────────────────────────────── */
+  @media print {
+    body { background: white; padding: 0; gap: 0; }
+    .slide { width: 100%; min-height: 0; height: 100vh; }
+    @page { size: A4 landscape; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 1 — COVER
+══════════════════════════════════════════════════════ -->
+<div class="slide cover-bg" style="justify-content:center;">
+  <div class="cover-content">
+    <div class="cover-tag">IBM Bob 2.0 Extension Challenge</div>
+    <h1>BobMigrate Lite</h1>
+    <p class="sub">Automated Legacy JavaScript Modernization<br>via a Custom MCP Server + Agent Skill</p>
+    <div class="cover-pills">
+      <span class="pill">Python MCP Server</span>
+      <span class="pill">9-Step Agent Skill</span>
+      <span class="pill">Zero LLM Token Analysis</span>
+      <span class="pill">OWASP Security Audit</span>
+      <span class="pill">Self-Healing Loop</span>
+    </div>
+  </div>
+  <span class="slide-num" style="color:#4a5568;">1 / 7</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 2 — PROBLEM
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="brand-corner">BobMigrate Lite</div>
+  <div class="pad">
+    <span class="label">The Problem</span>
+    <h2>Legacy JavaScript Is Everywhere</h2>
+    <p class="sub" style="font-size:15px; max-width:680px; margin-bottom:32px;">
+      Millions of Node.js codebases still use patterns that are harder to read, test, and maintain — and there's no safe, automated way to fix them.
+    </p>
+    <div class="three-col">
+      <div class="card card-accent">
+        <h3>var declarations</h3>
+        <p>Function-scoped <code>var</code> causes hoisting bugs and unclear intent. Modern JS requires <code>const</code> / <code>let</code>.</p>
+        <br><span class="badge badge-low">Low Severity</span>
+      </div>
+      <div class="card card-purple" style="border-left-color:#f59e0b;">
+        <h3>Callback patterns</h3>
+        <p>Error-first callbacks (<code>function(err, result)</code>) make async code difficult to reason about, test, or compose.</p>
+        <br><span class="badge badge-medium">High Severity</span>
+      </div>
+      <div class="card card-purple">
+        <h3>Raw http.get() calls</h3>
+        <p>Node's <code>http.get()</code> is not Promise-based, blocking adoption of <code>async/await</code> and modern fetch APIs.</p>
+        <br><span class="badge badge-high">Medium Severity</span>
+      </div>
+    </div>
+    <p style="margin-top:28px; font-size:14px; color:#6b7280;">
+      Manual refactoring is tedious, error-prone, and provides <strong>no guarantee</strong> the output actually works.
+    </p>
+  </div>
+  <span class="slide-num">2 / 7</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 3 — SOLUTION
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="brand-corner">BobMigrate Lite</div>
+  <div class="pad-sm">
+    <span class="label">The Solution</span>
+    <h2>One Command. Full Pipeline.</h2>
+    <div class="two-col" style="margin-top:24px; align-items:start;">
+      <div>
+        <p style="margin-bottom:18px;">BobMigrate Lite is an IBM Bob 2.0 extension that combines a <strong>custom MCP server</strong> with a <strong>9-step agent skill</strong> to automate the entire migration workflow — from analysis to a verified, audited output.</p>
+        <div class="code-block">
+<span class="cm">// Trigger the full pipeline in Bob Agent Mode</span>
+<span class="fn">Modernize</span> sample-app/user_service.js
+        </div>
+        <p style="margin-top:16px; font-size:13px; color:#6b7280;">Bob handles the rest: analyze → refactor → test → heal → audit → report.</p>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:14px;">
+          <h3 style="color:#3b5bdb;">Python MCP Server</h3>
+          <p style="font-size:14px;"><code>mcp-server/server.py</code> — two deterministic tools registered via <code>.bob/mcp.json</code>. Zero LLM tokens for analysis.</p>
+        </div>
+        <div class="card" style="margin-bottom:14px;">
+          <h3 style="color:#7c5cd8;">Agent Skill</h3>
+          <p style="font-size:14px;"><code>.bob/skills/modernize/SKILL.md</code> — a 9-step workflow loaded into Bob's context via <code>use_skill</code>.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:#059669;">Custom Command</h3>
+          <p style="font-size:14px;"><code>.bob/commands/modernize.md</code> — slash-command shortcut to trigger the full pipeline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">3 / 7</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 4 — ARCHITECTURE
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="brand-corner">BobMigrate Lite</div>
+  <div class="pad-sm">
+    <span class="label">Architecture</span>
+    <h2>How It All Connects</h2>
+    <div class="two-col" style="margin-top:24px; align-items:start; gap:32px;">
+      <div class="arch-box">
+        <div>┌──────────────────────────────────────────┐</div>
+        <div>│  <span class="hl">IBM Bob 2.0 Agent</span>                       │</div>
+        <div>│                                          │</div>
+        <div>│  .bob/skills/modernize/SKILL.md          │</div>
+        <div>│  <span class="arrow">└─▶</span> 9-step workflow (use_skill)        │</div>
+        <div>│       │                                  │</div>
+        <div>│       │ calls MCP tools                  │</div>
+        <div>│       <span class="arrow">▼</span>                                  │</div>
+        <div>│  .bob/mcp.json <span class="arrow">──▶</span> <span class="hl2">mcp-server/server.py</span> │</div>
+        <div>│                   │                      │</div>
+        <div>│                   <span class="arrow">├─</span> detect_legacy_patterns│</div>
+        <div>│                   <span class="arrow">└─</span> security_audit        │</div>
+        <div>│                                          │</div>
+        <div>│  Bob Shell: node sample-app/test.js      │</div>
+        <div>└──────────────────────────────────────────┘</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div class="card card-accent">
+          <h3>FastMCP over stdio</h3>
+          <p style="font-size:13px;">Server runs as a subprocess. Bob auto-discovers tools from the JSON schema. No network, no auth, fully local.</p>
+        </div>
+        <div class="card card-purple">
+          <h3>Skill as workflow engine</h3>
+          <p style="font-size:13px;"><code>SKILL.md</code> is loaded once per session via <code>use_skill</code> and drives all 9 steps — including the self-healing retry loop.</p>
+        </div>
+        <div class="card card-green">
+          <h3>Shell as truth oracle</h3>
+          <p style="font-size:13px;"><code>execute_command</code> runs Node.js tests. Exit code 0 = pass. No LLM opinion — real runtime execution.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">4 / 7</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 5 — WORKFLOW STEPS
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="brand-corner">BobMigrate Lite</div>
+  <div class="pad-sm">
+    <span class="label">9-Step Workflow</span>
+    <h2>The Full Migration Pipeline</h2>
+    <div class="two-col" style="margin-top:22px; align-items:start;">
+      <ul class="step-list">
+        <li><span class="step-num">1</span><div><strong>Identify target file</strong> — default: <code>sample-app/user_service.js</code></div></li>
+        <li><span class="step-num">2</span><div><strong>detect_legacy_patterns</strong> — MCP tool scans for <code>var</code>, callbacks, <code>http.get</code>. Returns structured JSON findings.</div></li>
+        <li><span class="step-num">3</span><div><strong>Snapshot original</strong> — stores <code>ORIGINAL_CODE</code> for the before/after summary.</div></li>
+        <li><span class="step-num">4</span><div><strong>Refactor</strong> — LLM rewrites: <code>var→const/let</code>, callbacks→<code>async/await</code>, <code>http.get→Promise</code>.</div></li>
+        <li><span class="step-num">5</span><div><strong>Verify test compatibility</strong> — confirms <code>test.js</code> expects a Promise return.</div></li>
+      </ul>
+      <ul class="step-list">
+        <li><span class="step-num">6</span><div><strong>Execute tests</strong> — runs <code>node sample-app/test.js</code> via Bob Shell.</div></li>
+        <li><span class="step-num" style="background:#dc2626;">7</span><div><strong>Self-healing loop</strong> — if test fails, patch and retry up to <strong>3×</strong> before escalating.</div></li>
+        <li><span class="step-num" style="background:#7c5cd8;">8</span><div><strong>security_audit</strong> — MCP tool checks for <code>eval()</code> and hardcoded secrets (OWASP baseline).</div></li>
+        <li><span class="step-num" style="background:#059669;">9</span><div><strong>Migration report</strong> — structured summary: issues found, transformations applied, test ✅, audit ✅.</div></li>
+      </ul>
+    </div>
+  </div>
+  <span class="slide-num">5 / 7</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 6 — DEMO RESULTS
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="brand-corner">BobMigrate Lite</div>
+  <div class="pad-sm">
+    <span class="label">Live Demo Results</span>
+    <h2>Before &amp; After — user_service.js</h2>
+    <div class="two-col" style="margin-top:22px; align-items:start;">
+      <div>
+        <p style="font-size:13px; color:#6b7280; margin-bottom:10px;">BEFORE — legacy <code>user_service.js</code> (9 issues detected)</p>
+        <div class="code-block" style="font-size:12px;">
+<span class="cm">// 5× var, 3× callback, 1× http.get</span>
+<span class="kw">var</span> http = require(<span class="str">'http'</span>);
+
+<span class="kw">function</span> <span class="fn">getUserData</span>(userId, <span class="fn">callback</span>) {
+  <span class="kw">var</span> options = { hostname: <span class="str">'...'</span> };
+  http.<span class="fn">get</span>(options, <span class="kw">function</span>(err, res) {
+    <span class="kw">if</span> (err) <span class="kw">return</span> <span class="fn">callback</span>(err, <span class="kw">null</span>);
+    <span class="cm">// ...</span>
+    <span class="fn">callback</span>(<span class="kw">null</span>, user);
+  });
+}
+        </div>
+        <p style="margin-top:10px; font-size:13px;"><span class="badge badge-high">❌ node test.js → exit 1</span></p>
+      </div>
+      <div>
+        <p style="font-size:13px; color:#6b7280; margin-bottom:10px;">AFTER — modernized (0 issues)</p>
+        <div class="code-block" style="font-size:12px;">
+<span class="cm">// const/let, async/await, Promise</span>
+<span class="kw">const</span> http = require(<span class="str">'http'</span>);
+
+<span class="kw">async function</span> <span class="fn">getUserData</span>(userId) {
+  <span class="kw">return new</span> Promise((resolve, reject) => {
+    <span class="kw">const</span> options = { hostname: <span class="str">'...'</span> };
+    http.<span class="fn">get</span>(options, (res) => {
+      <span class="cm">// ...</span>
+      resolve(user);
+    }).<span class="fn">on</span>(<span class="str">'error'</span>, reject);
+  });
+}
+        </div>
+        <p style="margin-top:10px; font-size:13px;"><span class="badge badge-pass">✅ node test.js → exit 0</span> &nbsp; <span class="badge badge-pass">✅ OWASP PASSED</span></p>
+      </div>
+    </div>
+    <div class="three-col" style="margin-top:24px;">
+      <div class="stat">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Legacy issues detected<br>in user_service.js</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" style="color:#059669;">0</div>
+        <div class="stat-label">LLM tokens used<br>for static analysis</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" style="color:#7c5cd8;">3×</div>
+        <div class="stat-label">Max self-healing<br>retry attempts</div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">6 / 7</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 7 — DIFFERENTIATORS + SETUP
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="brand-corner">BobMigrate Lite</div>
+  <div class="pad-sm">
+    <span class="label">Key Differentiators &amp; Quick Start</span>
+    <h2>Why BobMigrate Lite Stands Out</h2>
+    <div class="two-col" style="margin-top:22px; align-items:start; gap:36px;">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="card card-accent">
+          <h3>Deterministic validation</h3>
+          <p style="font-size:13px;">Pass/fail is decided by <em>actual code execution</em> (<code>node test.js</code>), not an LLM opinion. Exit code is the truth.</p>
+        </div>
+        <div class="card card-purple">
+          <h3>Zero-token static analysis</h3>
+          <p style="font-size:13px;">Both MCP tools run entirely in Python with regex. Only the structured JSON findings enter LLM context.</p>
+        </div>
+        <div class="card" style="border-left:4px solid #f59e0b;">
+          <h3 style="color:#d97706;">Self-healing robustness</h3>
+          <p style="font-size:13px;">The skill retries up to 3× on test failure — reading error output and patching the file each iteration.</p>
+        </div>
+        <div class="card card-green">
+          <h3>OWASP security gate</h3>
+          <p style="font-size:13px;">Every migration ends with a security audit. Hardcoded secrets and <code>eval()</code> are caught before the file is finalized.</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:14px; font-weight:600; color:#1f2328; margin-bottom:14px;">Get started in 3 steps:</p>
+        <ul class="step-list">
+          <li><span class="step-num">1</span><div><code>git clone &lt;repo&gt; &amp;&amp; cd bob-migrate</code><br><span class="muted">Requires Python 3.8+, Node.js 16+</span></div></li>
+          <li><span class="step-num">2</span><div><code>bash setup.sh</code><br><span class="muted">Installs deps, smoke-tests MCP server, runs fixture tests</span></div></li>
+          <li><span class="step-num">3</span><div>Open folder in <strong>IBM Bob 2.0</strong> and type:<br><code>Modernize sample-app/user_service.js</code></div></li>
+        </ul>
+        <div style="margin-top:22px; padding:16px 18px; background:#f0f4ff; border-radius:8px; border:1px solid #c7d2fe;">
+          <p style="font-size:13px; color:#3b5bdb; font-weight:600; margin-bottom:4px;">Bob Extension Stack Used</p>
+          <p style="font-size:13px; color:#374151;">MCP Server &nbsp;·&nbsp; Custom Skill &nbsp;·&nbsp; Slash Command &nbsp;·&nbsp; Bob Shell (<code>execute_command</code>)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">7 / 7</span>
+</div>
+
+</body>
+</html>
